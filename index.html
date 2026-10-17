@@ -105,7 +105,7 @@ h2{font-size:clamp(40px,6.4vw,76px)}
 .dark{background:var(--black);color:var(--paper);position:relative;overflow:hidden}
 .dark .beam{position:absolute;inset:0;background:conic-gradient(from 200deg at 100% 0%,transparent 0deg,rgba(234,228,216,.07) 10deg,rgba(234,228,216,.14) 17deg,rgba(234,228,216,.05) 26deg,transparent 34deg);filter:blur(10px);pointer-events:none}
 .posters{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:48px;position:relative}
-.poster{position:relative;aspect-ratio:2/3;overflow:hidden;background:#000;border:1px solid rgba(234,228,216,.15)}
+.poster{display:block;text-decoration:none;color:inherit;position:relative;aspect-ratio:2/3;overflow:hidden;background:#000;border:1px solid rgba(234,228,216,.15)}
 .poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
 .poster:hover img{transform:scale(1.06)}
 .poster:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.1) 30%,rgba(0,0,0,.85) 100%)}
@@ -113,7 +113,8 @@ h2{font-size:clamp(40px,6.4vw,76px)}
 .poster .wk{color:var(--red)}
 .poster .t{font-size:30px;margin-top:6px}
 .poster .y{font-family:'Special Elite',monospace;font-size:13px;opacity:.8;margin-top:6px}
-.arab{margin-top:18px;display:grid;grid-template-columns:240px 1fr;gap:22px;align-items:center;border:1px solid rgba(234,228,216,.2);padding:14px;position:relative}
+.arab{text-decoration:none;color:inherit;transition:border-color .3s;margin-top:18px;display:grid;grid-template-columns:240px 1fr;gap:22px;align-items:center;border:1px solid rgba(234,228,216,.2);padding:14px;position:relative}
+.arab:hover{border-color:var(--red)}
 .arab img{width:240px;height:100px;object-fit:cover}
 
 /* ---------- Ticket ---------- */
@@ -343,15 +344,15 @@ body.fx input, body.fx textarea, body.fx select{cursor:text}
     <h2 class="it words">cycle no. 01 — la dolce vita.</h2>
     <p class="lead" data-reveal>Italy, beauty and the ache of looking back. Four films, one month. One of them opens Screening No. 001.</p>
     <div class="posters">
-      <div class="poster" data-reveal data-cursor="Play"><div class="glare"></div><img src="images/paradiso-2.jpg" alt="Cinema Paradiso" style="object-position:62% center"><div class="meta"><div class="micro wk">Week 1</div><div class="t it">Cinema Paradiso</div><div class="y">Giuseppe Tornatore · 1988</div></div></div>
-      <div class="poster" data-reveal data-cursor="Play"><div class="glare"></div><img src="images/bellezza-5.jpg" alt="La Grande Bellezza" style="object-position:72% center"><div class="meta"><div class="micro wk">Week 2</div><div class="t it">La Grande Bellezza</div><div class="y">Paolo Sorrentino · 2013</div></div></div>
-      <div class="poster" data-reveal data-cursor="Play"><div class="glare"></div><img src="images/dolcevita-1.jpg" alt="La Dolce Vita" style="object-position:60% center;filter:grayscale(1) contrast(1.1)"><div class="meta"><div class="micro wk">Week 3</div><div class="t it">La Dolce Vita</div><div class="y">Federico Fellini · 1960</div></div></div>
-      <div class="poster" data-reveal data-cursor="Play"><div class="glare"></div><img src="images/ripley-2.jpg" alt="The Talented Mr. Ripley" style="object-position:30% center"><div class="meta"><div class="micro wk">Week 4</div><div class="t it">The Talented Mr. Ripley</div><div class="y">Anthony Minghella · 1999</div></div></div>
+      <a class="poster" href="films/cinema-paradiso.html" data-reveal data-cursor="Play"><div class="glare"></div><img src="images/paradiso-2.jpg" alt="Cinema Paradiso" style="object-position:62% center"><div class="meta"><div class="micro wk">Week 1</div><div class="t it">Cinema Paradiso</div><div class="y">Giuseppe Tornatore · 1988</div></div></a>
+      <a class="poster" href="films/la-grande-bellezza.html" data-reveal data-cursor="Play"><div class="glare"></div><img src="images/bellezza-5.jpg" alt="La Grande Bellezza" style="object-position:72% center"><div class="meta"><div class="micro wk">Week 2</div><div class="t it">La Grande Bellezza</div><div class="y">Paolo Sorrentino · 2013</div></div></a>
+      <a class="poster" href="films/la-dolce-vita.html" data-reveal data-cursor="Play"><div class="glare"></div><img src="images/dolcevita-1.jpg" alt="La Dolce Vita" style="object-position:60% center;filter:grayscale(1) contrast(1.1)"><div class="meta"><div class="micro wk">Week 3</div><div class="t it">La Dolce Vita</div><div class="y">Federico Fellini · 1960</div></div></a>
+      <a class="poster" href="films/the-talented-mr-ripley.html" data-reveal data-cursor="Play"><div class="glare"></div><img src="images/ripley-2.jpg" alt="The Talented Mr. Ripley" style="object-position:30% center"><div class="meta"><div class="micro wk">Week 4</div><div class="t it">The Talented Mr. Ripley</div><div class="y">Anthony Minghella · 1999</div></div></a>
     </div>
-    <div class="arab" data-reveal>
+    <a class="arab" href="films/caramel.html" data-reveal data-cursor="Play">
       <img src="images/caramel-2.jpg" alt="Caramel, Nadine Labaki">
       <div><div class="micro red">The Arab film of the cycle</div><div class="it" style="font-size:34px;margin-top:8px">Caramel <span class="ruqaa" style="font-style:normal;font-weight:400">سكر بنات</span></div><div class="type" style="opacity:.8;margin-top:6px">Nadine Labaki · 2007 · Beirut, a hair salon, five women.</div></div>
-    </div>
+    </a>
 
     <div class="ticketwrap">
       <div class="ticket" id="ticket" data-reveal>
