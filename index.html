@@ -111,7 +111,7 @@ h2{font-size:clamp(40px,6.4vw,76px)}
 .poster:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.1) 30%,rgba(0,0,0,.85) 100%)}
 .poster .meta{position:absolute;left:16px;right:16px;bottom:16px;z-index:2}
 .poster .wk{color:var(--red);display:inline-block;background:rgba(11,10,9,.78);padding:5px 8px 4px}
-.posters:after{content:"one of these four. revealed 48h before.";grid-column:1/-1;font-family:'Special Elite',monospace;font-size:15px;letter-spacing:.06em;color:rgba(234,228,216,.7);text-align:right;margin-top:-4px}
+.posters:after{content:"four films. you vote for one.";grid-column:1/-1;font-family:'Special Elite',monospace;font-size:15px;letter-spacing:.06em;color:rgba(234,228,216,.7);text-align:right;margin-top:-4px}
 .poster .t{font-size:30px;margin-top:6px;min-height:1.9em;display:flex;align-items:flex-end}
 .poster .y{font-family:'Special Elite',monospace;font-size:13px;opacity:.8;margin-top:6px}
 .arab{text-decoration:none;color:inherit;transition:border-color .3s;margin-top:18px;display:grid;grid-template-columns:240px 1fr;gap:22px;align-items:center;border:1px solid rgba(234,228,216,.2);padding:14px;position:relative}
@@ -330,7 +330,7 @@ body.fx input, body.fx textarea, body.fx select{cursor:text}
   </div></div>
   <div class="wrap">
     <div class="ritual" data-reveal>
-      <div><div class="frame grain"><img src="images/paradiso-3.jpg" alt="Alfredo at the projector, Cinema Paradiso"><div class="cond">Film</div></div><p>One film a night. The classics you've heard of and never seen on a big screen, revealed 48 hours before.</p></div>
+      <div><div class="frame grain"><img src="images/paradiso-3.jpg" alt="Alfredo at the projector, Cinema Paradiso"><div class="cond">Film</div></div><p>One film a night. The classics you've heard of and never seen on a big screen, and you vote for which one.</p></div>
       <div><div class="frame grain"><img src="images/dolcevita-4.jpg" alt="Mastroianni at the table, La Dolce Vita"><div class="cond">Talk</div></div><p>Nobody leaves when the credits roll. Small tables, one question, no lecture. Bring an opinion, leave with a new one.</p></div>
       <div><div class="frame grain"><img src="images/bellezza-6.jpg" alt="Jep at the party, La Grande Bellezza"><div class="cond">After</div></div><p>The bar, the people, the argument you didn't finish. Everyone brings the films that speak to them.</p></div>
     </div>
@@ -343,7 +343,7 @@ body.fx input, body.fx textarea, body.fx select{cursor:text}
   <div class="wrap" style="position:relative">
     <div class="micro label" data-reveal>The shortlist · November <span class="reelnum">Reel 2</span></div>
     <h2 class="it words">cycle no. 01 — la dolce vita.</h2>
-    <p class="lead" data-reveal>Italy, beauty and the ache of looking back. Four films on the shortlist. One of them opens Screening No. 001, and you find out which one 48 hours before.</p>
+    <p class="lead" data-reveal>Italy, beauty and the ache of looking back. Four films on the shortlist, and you vote for the one that opens Screening No. 001. Plus one Arab film for the cycle.</p>
     <div class="posters">
       <a class="poster" href="films/cinema-paradiso.html" data-reveal data-cursor="Play"><div class="glare"></div><img src="images/paradiso-2.jpg" alt="Cinema Paradiso" style="object-position:62% center"><div class="meta"><div class="micro wk">Shortlist · 01</div><div class="t it">Cinema Paradiso</div><div class="y">Giuseppe Tornatore · 1988</div></div></a>
       <a class="poster" href="films/la-grande-bellezza.html" data-reveal data-cursor="Play"><div class="glare"></div><img src="images/bellezza-5.jpg" alt="La Grande Bellezza" style="object-position:72% center"><div class="meta"><div class="micro wk">Shortlist · 02</div><div class="t it">La Grande Bellezza</div><div class="y">Paolo Sorrentino · 2013</div></div></a>
@@ -362,10 +362,10 @@ body.fx input, body.fx textarea, body.fx select{cursor:text}
           <h3 class="it" style="margin-top:12px">the first night.</h3>
           <p style="margin-top:14px;max-width:440px">The first 20 people on the list get a seat. First come, first served. Everyone after that goes on the waitlist for the next screening.</p>
           <div class="facts">
-            <div><span class="k">Film</span><span class="v">Revealed 48h before</span></div>
-            <div><span class="k">Venue</span><span class="v">To be announced</span></div>
-            <div><span class="k">Price</span><span class="v">To be announced</span></div>
-            <div><span class="k">Date</span><span class="v">You tell us below</span></div>
+            <div><span class="k">Film</span><span class="v">You vote, 1 of 4</span></div>
+            <div><span class="k">Venue</span><span class="v">Secret until 48h before</span></div>
+            <div><span class="k">Price</span><span class="v">Bites &amp; drinks, shared with the venue</span></div>
+            <div><span class="k">Date</span><span class="v">Thu 19 · Fri 20 · Sat 21 Nov</span></div>
             <div><span class="k">Payment</span><span class="v">Nothing to pay now</span></div>
           </div>
         </div>
@@ -413,6 +413,13 @@ body.fx input, body.fx textarea, body.fx select{cursor:text}
       <div class="step">
         <div class="step-h"><span class="serif">Your cinema</span><span class="micro" style="color:var(--grey)">2 / 3</span></div>
         <div class="grid">
+          <div class="field full"><label>Your vote for Screening No. 001 <span class="opt">pick one, the most votes wins</span></label>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="vote" value="Cinema Paradiso"><span>Cinema Paradiso</span></label>
+              <label class="chip"><input type="radio" name="vote" value="La Grande Bellezza"><span>La Grande Bellezza</span></label>
+              <label class="chip"><input type="radio" name="vote" value="La Dolce Vita"><span>La Dolce Vita</span></label>
+              <label class="chip"><input type="radio" name="vote" value="The Talented Mr. Ripley"><span>The Talented Mr. Ripley</span></label>
+            </div></div>
           <div class="field full"><label>The films you love <span class="opt">optional, pick any</span></label>
             <div class="chips">
               <label class="chip"><input type="checkbox" name="genres" value="Classics"><span>Classics</span></label>
@@ -437,7 +444,7 @@ body.fx input, body.fx textarea, body.fx select{cursor:text}
 
       <div class="step">
         <div class="step-h"><span class="serif">When suits you</span><span class="micro" style="color:var(--grey)">3 / 3</span></div>
-        <div class="field"><label>Tick every slot that works <span class="opt">optional</span></label></div>
+        <div class="field"><label>Thu 19, Fri 20 or Sat 21 November. Tick every slot that works <span class="opt">optional</span></label></div>
         <div class="slots" style="margin-top:12px">
           <div class="d">Thu 19 Nov</div>
           <label class="slot"><input type="checkbox" name="availability" value="Thu 19 Nov 19:30"><span>19:30</span></label>
@@ -452,7 +459,7 @@ body.fx input, body.fx textarea, body.fx select{cursor:text}
           <label class="slot"><input type="checkbox" name="availability" value="Sat 21 Nov 20:30"><span>20:30</span></label>
           <label class="slot"><input type="checkbox" name="availability" value="Sat 21 Nov 21:30"><span>21:30</span></label>
         </div>
-        <p class="note">Venue and price will be shared with the list before anything is booked. Nothing to pay today.</p>
+        <p class="note">The venue stays secret until 48 hours before. We share it with the contribution for bites and drinks. Nothing to pay today.</p>
       </div>
 
       <div class="submit">
@@ -465,7 +472,7 @@ body.fx input, body.fx textarea, body.fx select{cursor:text}
     <div class="thanks">
       <div class="it" id="thx-title">you're on the list.</div>
       <p class="type" id="thx-pos" style="font-size:20px;margin-top:18px"></p>
-      <p class="lead" style="margin:22px auto 0">We'll message you on WhatsApp when the date and venue are set. The film comes 48 hours before. Save our number, that's how you'll hear from us.</p>
+      <p class="lead" style="margin:22px auto 0">Votes close Sunday 15 November. On Monday 16 we message you on WhatsApp with the winning film and the date. The venue comes 48 hours before. Save our number, that's how you'll hear from us.</p>
       <p class="ruqaa" style="font-size:44px;margin-top:24px">بعد الشارة</p>
     </div>
     </div>
