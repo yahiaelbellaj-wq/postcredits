@@ -110,9 +110,9 @@ h2{font-size:clamp(40px,6.4vw,76px)}
 .poster:hover img{transform:scale(1.06)}
 .poster:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.1) 30%,rgba(0,0,0,.85) 100%)}
 .poster .meta{position:absolute;left:16px;right:16px;bottom:16px;z-index:2}
-.poster .wk{color:var(--red)}
+.poster .wk{color:var(--red);display:inline-block;background:rgba(11,10,9,.78);padding:5px 8px 4px}
 .posters:after{content:"one of these four. revealed 48h before.";grid-column:1/-1;font-family:'Special Elite',monospace;font-size:15px;letter-spacing:.06em;color:rgba(234,228,216,.7);text-align:right;margin-top:-4px}
-.poster .t{font-size:30px;margin-top:6px}
+.poster .t{font-size:30px;margin-top:6px;min-height:1.9em;display:flex;align-items:flex-end}
 .poster .y{font-family:'Special Elite',monospace;font-size:13px;opacity:.8;margin-top:6px}
 .arab{text-decoration:none;color:inherit;transition:border-color .3s;margin-top:18px;display:grid;grid-template-columns:240px 1fr;gap:22px;align-items:center;border:1px solid rgba(234,228,216,.2);padding:14px;position:relative}
 .arab:hover{border-color:var(--red)}
