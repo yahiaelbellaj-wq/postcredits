@@ -111,6 +111,7 @@ h2{font-size:clamp(40px,6.4vw,76px)}
 .poster:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.1) 30%,rgba(0,0,0,.85) 100%)}
 .poster .meta{position:absolute;left:16px;right:16px;bottom:16px;z-index:2}
 .poster .wk{color:var(--red)}
+.posters:after{content:"one of these four. revealed 48h before.";grid-column:1/-1;font-family:'Special Elite',monospace;font-size:15px;letter-spacing:.06em;color:rgba(234,228,216,.7);text-align:right;margin-top:-4px}
 .poster .t{font-size:30px;margin-top:6px}
 .poster .y{font-family:'Special Elite',monospace;font-size:13px;opacity:.8;margin-top:6px}
 .arab{text-decoration:none;color:inherit;transition:border-color .3s;margin-top:18px;display:grid;grid-template-columns:240px 1fr;gap:22px;align-items:center;border:1px solid rgba(234,228,216,.2);padding:14px;position:relative}
@@ -302,8 +303,8 @@ body.fx input, body.fx textarea, body.fx select{cursor:text}
 
 <!-- MARQUEE -->
 <div class="marquee" aria-hidden="true"><div class="track">
-  <span>Now showing</span><span class="dot">✦</span><span>Cycle No. 01 · La Dolce Vita</span><span class="dot">✦</span><span>Cinema Paradiso</span><span class="dot">✦</span><span>La Grande Bellezza</span><span class="dot">✦</span><span>La Dolce Vita</span><span class="dot">✦</span><span>The Talented Mr. Ripley</span><span class="dot">✦</span><span>Caramel</span><span class="dot">✦</span><span>Film · Talk · After</span><span class="dot">✦</span>
-  <span>Now showing</span><span class="dot">✦</span><span>Cycle No. 01 · La Dolce Vita</span><span class="dot">✦</span><span>Cinema Paradiso</span><span class="dot">✦</span><span>La Grande Bellezza</span><span class="dot">✦</span><span>La Dolce Vita</span><span class="dot">✦</span><span>The Talented Mr. Ripley</span><span class="dot">✦</span><span>Caramel</span><span class="dot">✦</span><span>Film · Talk · After</span><span class="dot">✦</span>
+  <span>The shortlist</span><span class="dot">✦</span><span>Cycle No. 01 · La Dolce Vita</span><span class="dot">✦</span><span>Cinema Paradiso</span><span class="dot">✦</span><span>La Grande Bellezza</span><span class="dot">✦</span><span>La Dolce Vita</span><span class="dot">✦</span><span>The Talented Mr. Ripley</span><span class="dot">✦</span><span>Caramel</span><span class="dot">✦</span><span>Film · Talk · After</span><span class="dot">✦</span>
+  <span>The shortlist</span><span class="dot">✦</span><span>Cycle No. 01 · La Dolce Vita</span><span class="dot">✦</span><span>Cinema Paradiso</span><span class="dot">✦</span><span>La Grande Bellezza</span><span class="dot">✦</span><span>La Dolce Vita</span><span class="dot">✦</span><span>The Talented Mr. Ripley</span><span class="dot">✦</span><span>Caramel</span><span class="dot">✦</span><span>Film · Talk · After</span><span class="dot">✦</span>
 </div></div>
 
 <!-- L'IDÉE -->
@@ -340,14 +341,14 @@ body.fx input, body.fx textarea, body.fx select{cursor:text}
 <section class="dark" data-reel>
   <div class="beam"></div>
   <div class="wrap" style="position:relative">
-    <div class="micro label" data-reveal>Now showing · November <span class="reelnum">Reel 2</span></div>
+    <div class="micro label" data-reveal>The shortlist · November <span class="reelnum">Reel 2</span></div>
     <h2 class="it words">cycle no. 01 — la dolce vita.</h2>
-    <p class="lead" data-reveal>Italy, beauty and the ache of looking back. Four films, one month. One of them opens Screening No. 001.</p>
+    <p class="lead" data-reveal>Italy, beauty and the ache of looking back. Four films on the shortlist. One of them opens Screening No. 001, and you find out which one 48 hours before.</p>
     <div class="posters">
-      <a class="poster" href="films/cinema-paradiso.html" data-reveal data-cursor="Play"><div class="glare"></div><img src="images/paradiso-2.jpg" alt="Cinema Paradiso" style="object-position:62% center"><div class="meta"><div class="micro wk">Week 1</div><div class="t it">Cinema Paradiso</div><div class="y">Giuseppe Tornatore · 1988</div></div></a>
-      <a class="poster" href="films/la-grande-bellezza.html" data-reveal data-cursor="Play"><div class="glare"></div><img src="images/bellezza-5.jpg" alt="La Grande Bellezza" style="object-position:72% center"><div class="meta"><div class="micro wk">Week 2</div><div class="t it">La Grande Bellezza</div><div class="y">Paolo Sorrentino · 2013</div></div></a>
-      <a class="poster" href="films/la-dolce-vita.html" data-reveal data-cursor="Play"><div class="glare"></div><img src="images/dolcevita-1.jpg" alt="La Dolce Vita" style="object-position:60% center;filter:grayscale(1) contrast(1.1)"><div class="meta"><div class="micro wk">Week 3</div><div class="t it">La Dolce Vita</div><div class="y">Federico Fellini · 1960</div></div></a>
-      <a class="poster" href="films/the-talented-mr-ripley.html" data-reveal data-cursor="Play"><div class="glare"></div><img src="images/ripley-2.jpg" alt="The Talented Mr. Ripley" style="object-position:30% center"><div class="meta"><div class="micro wk">Week 4</div><div class="t it">The Talented Mr. Ripley</div><div class="y">Anthony Minghella · 1999</div></div></a>
+      <a class="poster" href="films/cinema-paradiso.html" data-reveal data-cursor="Play"><div class="glare"></div><img src="images/paradiso-2.jpg" alt="Cinema Paradiso" style="object-position:62% center"><div class="meta"><div class="micro wk">Shortlist · 01</div><div class="t it">Cinema Paradiso</div><div class="y">Giuseppe Tornatore · 1988</div></div></a>
+      <a class="poster" href="films/la-grande-bellezza.html" data-reveal data-cursor="Play"><div class="glare"></div><img src="images/bellezza-5.jpg" alt="La Grande Bellezza" style="object-position:72% center"><div class="meta"><div class="micro wk">Shortlist · 02</div><div class="t it">La Grande Bellezza</div><div class="y">Paolo Sorrentino · 2013</div></div></a>
+      <a class="poster" href="films/la-dolce-vita.html" data-reveal data-cursor="Play"><div class="glare"></div><img src="images/dolcevita-1.jpg" alt="La Dolce Vita" style="object-position:60% center;filter:grayscale(1) contrast(1.1)"><div class="meta"><div class="micro wk">Shortlist · 03</div><div class="t it">La Dolce Vita</div><div class="y">Federico Fellini · 1960</div></div></a>
+      <a class="poster" href="films/the-talented-mr-ripley.html" data-reveal data-cursor="Play"><div class="glare"></div><img src="images/ripley-2.jpg" alt="The Talented Mr. Ripley" style="object-position:30% center"><div class="meta"><div class="micro wk">Shortlist · 04</div><div class="t it">The Talented Mr. Ripley</div><div class="y">Anthony Minghella · 1999</div></div></a>
     </div>
     <a class="arab" href="films/caramel.html" data-reveal data-cursor="Play">
       <img src="images/caramel-2.jpg" alt="Caramel, Nadine Labaki">
