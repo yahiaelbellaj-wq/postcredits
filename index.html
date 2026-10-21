@@ -279,6 +279,11 @@ body.fx input, body.fx textarea, body.fx select{cursor:text}
   .strip figure,.strip img{width:260px}.strip img{height:109px}
 }
 </style>
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','974484825722317');fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=974484825722317&ev=PageView&noscript=1"></noscript>
 </head>
 <body class="paper">
 <div class="cursor" id="cursor"></div>
@@ -633,6 +638,8 @@ form.addEventListener('submit', async function (e) {
     pos.textContent = res.seat ? `Seat ${res.position} of 20 is yours.` : `You're number ${res.position - 20} on the waitlist. If a seat frees up, we offer it to you.`;
     if (res.duplicate) pos.textContent = 'You were already on the list. ' + pos.textContent;
   }
+  // Pixel Meta : une inscription = un Lead (pas pour un doublon). Aucune donnée personnelle envoyée.
+  if (window.fbq && !(res && res.duplicate)) fbq('track', 'Lead', { content_name: 'Screening No. 001 waitlist' });
   clap.classList.add('open');
   setTimeout(() => { clap.classList.remove('open'); clapSound(); }, 380);
   setTimeout(() => { document.getElementById('formbox').classList.add('sent'); document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' }); }, 750);
