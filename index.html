@@ -617,6 +617,11 @@ document.getElementById('stub').addEventListener('click', () => {
 const WAITLIST_URL = 'https://script.google.com/macros/s/AKfycbxOYdrrOnZscrlpo6LYzZdiZam4GSmZbIC8GVODl9PsJDF0J0jDu0rcS6X0yLxNxA-A/exec';
 const clap = document.getElementById('clap');
 const form = document.getElementById('wl');
+// Keep the ad that brought the visitor (utm) for the whole visit, so the Sheet shows which ad converts.
+try {
+  const q = new URLSearchParams(location.search);
+  if (q.get('utm_source')) sessionStorage.setItem('pc_utm', [q.get('utm_source'), q.get('utm_campaign'), q.get('utm_content')].filter(Boolean).join('/'));
+} catch (err) {}
 form.addEventListener('submit', async function (e) {
   e.preventDefault();
   const req = ['first', 'last', 'email', 'phone'].map(id => document.getElementById(id));
@@ -625,6 +630,7 @@ form.addEventListener('submit', async function (e) {
   if (bad.length) { bad[0].focus(); return; }
   const btn = document.getElementById('submitbtn'); btn.disabled = true; btn.textContent = 'Rolling…';
   const body = new URLSearchParams(new FormData(form));
+  try { const utm = sessionStorage.getItem('pc_utm'); if (utm) body.set('source', ((body.get('source') || '') + ' [' + utm + ']').trim()); } catch (err) {}
   let res = null;
   try {
     const r = await fetch(WAITLIST_URL, { method: 'POST', body });
