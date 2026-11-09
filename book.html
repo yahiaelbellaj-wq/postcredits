@@ -239,11 +239,8 @@ document.getElementById('bk').addEventListener('submit', async function (e) {
   const body = new URLSearchParams(new FormData(this));
   let res = null;
   try { res = await (await fetch(WAITLIST_URL, { method: 'POST', body })).json(); }
-  catch (err) {
-    try { await fetch(WAITLIST_URL, { method: 'POST', body, mode: 'no-cors' }); res = { ok: true }; }
-    catch (err2) { btn.disabled = false; btn.textContent = 'Continue to payment'; alert('Something went wrong. Please try again, or reply to our email.'); return; }
-  }
-  if (res && res.ok === false) { btn.disabled = false; btn.textContent = 'Continue to payment'; alert(res.error === 'full' ? 'Sorry, all 50 seats are taken. You stay on the waitlist.' : 'Please fill in your name, email, WhatsApp and your menu.'); return; }
+  catch (err) { btn.disabled = false; btn.textContent = 'Continue to payment'; alert('Something went wrong. Please try again in a minute, or reply to our email.'); return; } // pas de « succès » à l'aveugle : le serveur doit valider la place
+  if (res && res.ok === false) { btn.disabled = false; btn.textContent = 'Continue to payment'; alert(res.error === 'full' ? 'Sorry, all 50 seats are taken. You stay on the waitlist.' : res.error === 'notyet' ? "Booking is open first to the first 50 people on the list, using the email they signed up with. Not one of them? You're still on the waitlist: if seats open, you'll get an email." : 'Please fill in your name, email, WhatsApp and your menu.'); return; }
   document.getElementById('recap').innerHTML = [['Film drink', pick('drink').value], ['Dinner', pick('main').value], ['Dinner drink', pick('drink2').value]]
     .map(([k, v]) => `<div><span>${k}</span>${esc(v)}</div>`).join('');
   box.classList.add('sent');
