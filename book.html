@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="description" content="Book your seat for Post Credits Screening No. 001, Thursday 26 November, Dubai.">
 <meta property="og:title" content="Post Credits · Screening No. 001 · Thu 26 Nov">
-<meta property="og:description" content="50 seats. 230 AED all in: the film, popcorn and a drink, then dinner. Venue secret until 48h before.">
+<meta property="og:description" content="50 seats. 235 AED all in: the film, popcorn and a drink, then dinner. Venue secret until 48h before.">
 <meta property="og:image" content="https://postcreditsdxb.com/og-image.jpg">
 <meta name="theme-color" content="#0B0A09">
 <link rel="icon" href="favicon.png">
@@ -142,7 +142,7 @@ textarea{width:100%;font:inherit;font-size:16px;background:rgba(255,255,255,.45)
     </div>
     <div class="stub">
       <div class="micro" style="font-size:10px;color:var(--grey)">Your seat</div>
-      <div class="it">230 AED</div>
+      <div class="it">235 AED</div>
       <div class="micro" style="font-size:10px;color:var(--grey)">50 seats</div>
     </div>
   </div>
@@ -154,7 +154,7 @@ textarea{width:100%;font:inherit;font-size:16px;background:rgba(255,255,255,.45)
     <p class="lead">Your drink for the film, your dinner for the after, anything the kitchen should know. Then you pay, and your seat is yours.</p>
     <div class="steps">
       <div><b>1 · Your menu</b>Two minutes.</div>
-      <div><b>2 · Pay 230 AED</b>Secure payment by card, Apple Pay or Google Pay.</div>
+      <div><b>2 · Pay 235 AED</b>Secure payment by card, Apple Pay or Google Pay.</div>
       <div><b>3 · The venue</b>Sent to you 48h before.</div>
     </div>
     <form id="bk" novalidate>
@@ -184,9 +184,9 @@ textarea{width:100%;font:inherit;font-size:16px;background:rgba(255,255,255,.45)
     </form>
     <div class="thanks">
       <div class="it">one last step.</div>
-      <p>Your menu is saved. Pay 230 AED to lock your seat — it's only yours once paid.</p>
+      <p>Your menu is saved. Pay 235 AED to lock your seat — it's only yours once paid.</p>
       <div class="recap" id="recap"></div>
-      <a class="btn" id="paybtn" href="__ZIINA_URL__" target="_blank" rel="noopener">Pay 230 AED · secure</a>
+      <a class="btn" id="paybtn" href="https://pay.ziina.com/postcredits.dxb/eGue3udd4" target="_blank" rel="noopener">Pay 235 AED · secure</a>
       <p class="soon">Payment opens shortly — we'll email you the link.</p>
       <p class="ruqaa" style="font-size:40px">بعد الشارة</p>
     </div>
@@ -196,7 +196,7 @@ textarea{width:100%;font:inherit;font-size:16px;background:rgba(255,255,255,.45)
 <script>
 // Lien perso envoyé par mail : /book?e=<email>&n=<prénom>. Le formulaire écrit dans l'onglet Bookings, puis ouvre le lien de paiement Ziina.
 const WAITLIST_URL = 'https://script.google.com/macros/s/AKfycby48TZziF1vFC0jDyZC9niAZTA3Xbylq1UBgo-oyw9Lbmdagsx75quONyEX-msYpZ7MJQ/exec'; // appli web « Post Credits · Sheet tools » (bookings.gs)
-const PAY_URL = '__ZIINA_URL__';
+const PAY_URL = 'https://pay.ziina.com/postcredits.dxb/eGue3udd4';
 const q = new URLSearchParams(location.search);
 const name = (q.get('n') || '').trim().slice(0, 40);
 if (name) { document.getElementById('hello').textContent = name + ','; document.getElementById('first').value = name; }
