@@ -116,6 +116,12 @@ textarea{width:100%;font:inherit;font-size:16px;background:rgba(255,255,255,.45)
 .thanks .btn{margin-top:28px}
 .soon{display:none;margin-top:18px;font-size:14px;color:var(--grey)}
 .nopay .soon{display:block}.nopay #paybtn{display:none}
+.opts.seats{grid-template-columns:repeat(3,1fr)}
+@media(max-width:560px){.opts.seats{grid-template-columns:1fr}}
+.guest{border-top:2px solid var(--ink);padding-top:22px;margin-top:6px}
+.guest .gh{font-family:'Fraunces',serif;font-style:italic;font-weight:900;font-size:30px;margin-bottom:6px}
+.guest .gs{font-size:14px;color:var(--grey);margin-bottom:18px}
+.guest[hidden]{display:none}
 
 </style>
 </head>
@@ -165,6 +171,13 @@ textarea{width:100%;font:inherit;font-size:16px;background:rgba(255,255,255,.45)
         <div class="field"><label for="last">Last name</label><input id="last" name="last_name" type="text" required autocomplete="family-name"></div>
         <div class="field"><label for="email">Email you signed up with</label><input id="email" name="email" type="email" required autocomplete="email"></div>
         <div class="field"><label for="phone">WhatsApp number</label><input id="phone" name="phone" type="tel" required autocomplete="tel" placeholder="+971"></div>
+        <div class="field full" id="seatsf"><label>How many seats?</label>
+          <div class="opts seats">
+            <label class="opt" data-seats="1"><input type="radio" name="seats" value="1" checked><span class="c"><span class="n">Just me</span><span class="d">235 AED</span></span></label>
+            <label class="opt" data-seats="2"><input type="radio" name="seats" value="2"><span class="c"><span class="n">Me + 1 friend</span><span class="d">470 AED · 2 seats</span></span></label>
+            <label class="opt" data-seats="3"><input type="radio" name="seats" value="3"><span class="c"><span class="n">Me + 2 friends</span><span class="d">705 AED · 3 seats</span></span></label>
+          </div>
+          <p class="legend">Your friends don't need to be on the list. Each one picks their own menu below.</p></div>
         <div class="field full menu" id="m1"><div class="mstep"><span class="mnum">1</span><div><div class="mt">During the film</div><div class="ms">Popcorn's on us. Pick the drink that goes with it.</div></div></div>
           <div class="opts" data-name="drink" data-set="soft"></div></div>
         <div class="field full menu" id="m2"><div class="mstep"><span class="mnum">2</span><div><div class="mt">Dinner, after the credits</div><div class="ms">Mama Trattoria. One pasta or one pizza each.</div></div></div>
@@ -173,8 +186,9 @@ textarea{width:100%;font:inherit;font-size:16px;background:rgba(255,255,255,.45)
           <p class="legend">V vegetarian · D dairy · E egg · G gluten · N nuts · S seafood · M mustard</p></div>
         <div class="field full menu" id="m3"><div class="mstep"><span class="mnum">3</span><div><div class="mt">A drink with dinner</div><div class="ms">Same list, your call.</div></div></div>
           <div class="opts" data-name="drink2" data-set="soft"></div></div>
-        <div class="field full"><label for="allergies">Allergies or dietary needs <span class="opt">optional · vegetarian, vegan, nuts, gluten…</span></label><textarea id="allergies" name="allergies" maxlength="300"></textarea></div>
-        <div class="field full"><label for="notes">Anything else? <span class="opt">optional · coming with a friend who's also booking, access needs…</span></label><input id="notes" name="notes" type="text" maxlength="200"></div>
+        <div class="field full" id="guests"></div>
+        <div class="field full"><label for="allergies">Allergies or dietary needs <span class="opt">optional · for you or your friends · vegetarian, vegan, nuts, gluten…</span></label><textarea id="allergies" name="allergies" maxlength="300"></textarea></div>
+        <div class="field full"><label for="notes">Anything else? <span class="opt">optional · access needs, anything we should know…</span></label><input id="notes" name="notes" type="text" maxlength="200"></div>
         <div class="field full"><label class="check"><input type="checkbox" id="terms" required><span>I understand my seat is confirmed once paid. Can't make it? Tell us at least 72 hours before and we pass your seat to a friend you name or to the next person on the waitlist.</span></label></div>
       </div>
       <div class="submit">
@@ -184,7 +198,7 @@ textarea{width:100%;font:inherit;font-size:16px;background:rgba(255,255,255,.45)
     </form>
     <div class="thanks">
       <div class="it">one last step.</div>
-      <p>Your menu is saved. Pay 235 AED to lock your seat — it's only yours once paid.</p>
+      <p id="paytxt">Your menu is saved. Pay 235 AED to lock your seat — it's only yours once paid.</p>
       <div class="recap" id="recap"></div>
       <a class="btn" id="paybtn" href="https://pay.ziina.com/postcredits.dxb/eGue3udd4" target="_blank" rel="noopener">Pay 235 AED · secure</a>
       <p class="soon">Payment opens shortly — we'll email you the link.</p>
@@ -196,7 +210,9 @@ textarea{width:100%;font:inherit;font-size:16px;background:rgba(255,255,255,.45)
 <script>
 // Lien perso envoyé par mail : /book?e=<email>&n=<prénom>. Le formulaire écrit dans l'onglet Bookings, puis ouvre le lien de paiement Ziina.
 const WAITLIST_URL = 'https://script.google.com/macros/s/AKfycby48TZziF1vFC0jDyZC9niAZTA3Xbylq1UBgo-oyw9Lbmdagsx75quONyEX-msYpZ7MJQ/exec'; // appli web « Post Credits · Sheet tools » (bookings.gs)
-const PAY_URL = 'https://pay.ziina.com/postcredits.dxb/eGue3udd4';
+const PAY = { 1: 'https://pay.ziina.com/postcredits.dxb/eGue3udd4', 2: '__ZIINA_URL_2__', 3: '__ZIINA_URL_3__' }; // un lien Ziina par nombre de places
+const PAY_URL = PAY[1];
+const PRICE = 235;
 const q = new URLSearchParams(location.search);
 const name = (q.get('n') || '').trim().slice(0, 40);
 if (name) { document.getElementById('hello').textContent = name + ','; document.getElementById('first').value = name; }
@@ -211,7 +227,19 @@ const MENU = {
           ['Veg extravaganza', 'Mushroom, zucchini, capsicum', 'D E G M'], ['Quattro formaggi', 'Mozzarella, gorgonzola, fontina, parmesan', 'V · D G']]
 };
 const esc = x => String(x).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-document.querySelectorAll('.opts').forEach(box => {
+// Invités (jusqu'à 2) : prénom, nom, WhatsApp, et leur propre menu
+const step = (n, t, s, inner) => `<div class="field full menu"><div class="mstep"><span class="mnum">${n}</span><div><div class="mt">${t}</div><div class="ms">${s}</div></div></div>${inner}</div>`;
+document.getElementById('guests').innerHTML = [1, 2].map(i => `<div class="guest" id="g${i}" hidden>
+  <div class="gh">friend ${i}</div><div class="gs">They don't need to be on the list. We only need their name and their menu.</div>
+  <div class="grid">
+    <div class="field"><label for="g${i}_first">Their first name</label><input id="g${i}_first" name="g${i}_first" type="text" disabled></div>
+    <div class="field"><label for="g${i}_last">Their last name</label><input id="g${i}_last" name="g${i}_last" type="text" disabled></div>
+    <div class="field full"><label for="g${i}_phone">Their WhatsApp <span class="opt">optional · so we can send them the venue too</span></label><input id="g${i}_phone" name="g${i}_phone" type="tel" placeholder="+971" disabled></div>
+    ${step(1, 'During the film', 'Their drink with the popcorn.', `<div class="opts" data-name="g${i}_drink" data-set="soft"></div>`)}
+    ${step(2, 'Dinner, after the credits', 'One pasta or one pizza.', `<div class="mcat">Pasta</div><div class="opts dish" data-name="g${i}_main" data-set="pasta"></div><div class="mcat">Pizza</div><div class="opts dish" data-name="g${i}_main" data-set="pizza"></div>`)}
+    ${step(3, 'A drink with dinner', 'Same list.', `<div class="opts" data-name="g${i}_drink2" data-set="soft"></div>`)}
+  </div></div>`).join('');
+document.querySelectorAll('.opts[data-set]').forEach(box => {
   const name = box.dataset.name, set = box.dataset.set;
   box.innerHTML = MENU[set].map(([n, d, t]) => {
     const val = set === 'soft' ? n : `${n} (${set})`;
@@ -221,6 +249,16 @@ document.querySelectorAll('.opts').forEach(box => {
 });
 document.querySelectorAll('.menu').forEach(m => m.addEventListener('change', () => m.classList.remove('miss')));
 if (PAY_URL.indexOf('__') === 0) box.classList.add('nopay');
+// On ne propose 2 ou 3 places que si le lien Ziina correspondant existe
+document.querySelectorAll('[data-seats]').forEach(l => { if (PAY[l.dataset.seats].indexOf('__') === 0) l.style.display = 'none'; });
+if (PAY[2].indexOf('__') === 0) document.getElementById('seatsf').style.display = 'none';
+const seatsNow = () => +(document.querySelector('input[name=seats]:checked') || { value: 1 }).value;
+function showGuests() {
+  const n = seatsNow();
+  [1, 2].forEach(i => { const g = document.getElementById('g' + i), on = i < n; g.hidden = !on; g.querySelectorAll('input').forEach(el => el.disabled = !on); });
+}
+document.querySelectorAll('input[name=seats]').forEach(r => r.addEventListener('change', showGuests));
+showGuests();
 
 
 document.getElementById('bk').addEventListener('submit', async function (e) {
@@ -229,11 +267,16 @@ document.getElementById('bk').addEventListener('submit', async function (e) {
   const bad = req.filter(el => !el.value.trim() || (el.type === 'email' && !/^\S+@\S+\.\S+$/.test(el.value)));
   req.forEach(el => el.style.borderBottomColor = bad.includes(el) ? 'var(--red)' : '');
   const pick = n => this.querySelector(`input[name=${n}]:checked`);
-  const miss = [['drink', 'm1'], ['main', 'm2'], ['drink2', 'm3']].filter(([n, id]) => { const ko = !pick(n); document.getElementById(id).classList.toggle('miss', ko); return ko; });
+  const n = seatsNow();
+  for (let i = 1; i < n; i++) req.push(document.getElementById(`g${i}_first`), document.getElementById(`g${i}_last`));
+  const bad2 = req.filter(el => !el.value.trim()); bad2.forEach(el => el.style.borderBottomColor = 'var(--red)'); if (bad2.length && !bad.length) bad.push(bad2[0]);
+  const menus = [['drink', document.getElementById('m1')], ['main', document.getElementById('m2')], ['drink2', document.getElementById('m3')]];
+  for (let i = 1; i < n; i++) ['drink', 'main', 'drink2'].forEach(k => menus.push([`g${i}_${k}`, document.querySelector(`.opts[data-name=g${i}_${k}]`).closest('.menu')]));
+  const miss = menus.filter(([nm, el]) => { const ko = !pick(nm); el.classList.toggle('miss', ko); return ko; });
   const terms = document.getElementById('terms');
   terms.parentElement.style.color = terms.checked ? '' : 'var(--red)';
   if (bad.length) { bad[0].focus(); return; }
-  if (miss.length) { document.getElementById(miss[0][1]).scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+  if (miss.length) { miss[0][1].scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
   if (!terms.checked) return;
   const btn = document.getElementById('go'); btn.disabled = true; btn.textContent = 'Saving…';
   const body = new URLSearchParams(new FormData(this));
@@ -242,9 +285,12 @@ document.getElementById('bk').addEventListener('submit', async function (e) {
   let res = null;
   try { res = await (await fetch(WAITLIST_URL, { method: 'POST', body })).json(); }
   catch (err) { btn.disabled = false; btn.textContent = 'Continue to payment'; alert('Something went wrong. Please try again in a minute, or reply to our email.'); return; } // pas de « succès » à l'aveugle : le serveur doit valider la place
-  if (res && res.ok === false) { btn.disabled = false; btn.textContent = 'Continue to payment'; alert(res.error === 'full' ? 'Sorry, all 50 seats are taken. You stay on the waitlist.' : res.error === 'notyet' ? "Booking is open first to the first 50 people on the list, using the email they signed up with. Not one of them? You're still on the waitlist: if seats open, you'll get an email." : 'Please fill in your name, email, WhatsApp and your menu.'); return; }
-  document.getElementById('recap').innerHTML = [['Film drink', pick('drink').value], ['Dinner', pick('main').value], ['Dinner drink', pick('drink2').value]]
-    .map(([k, v]) => `<div><span>${k}</span>${esc(v)}</div>`).join('');
+  if (res && res.ok === false) { btn.disabled = false; btn.textContent = 'Continue to payment'; alert(res.error === 'full' ? 'Sorry, there are not enough seats left for this booking. Try with fewer seats, or you stay on the waitlist.' : res.error === 'notyet' ? "Booking is open first to the first 50 people on the list, using the email they signed up with. Not one of them? You're still on the waitlist: if seats open, you'll get an email." : 'Please fill in the names, your email, your WhatsApp and every menu.'); return; }
+  const who = [['You', '']].concat([1, 2].slice(0, n - 1).map(i => [document.getElementById(`g${i}_first`).value.trim(), `g${i}_`]));
+  document.getElementById('recap').innerHTML = who.map(([nm, pre]) => `<div><span>${esc(nm)}</span>${esc(pick(pre + 'drink').value)} · ${esc(pick(pre + 'main').value)} · ${esc(pick(pre + 'drink2').value)}</div>`).join('');
+  const total = PRICE * n, pb = document.getElementById('paybtn');
+  pb.href = PAY[n]; pb.textContent = `Pay ${total} AED · secure`;
+  document.getElementById('paytxt').textContent = n > 1 ? `Your menus are saved. Pay ${total} AED for your ${n} seats to lock them — they're only yours once paid.` : `Your menu is saved. Pay ${total} AED to lock your seat — it's only yours once paid.`;
   box.classList.add('sent');
   box.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
