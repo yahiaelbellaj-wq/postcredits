@@ -175,9 +175,8 @@ textarea{width:100%;font:inherit;font-size:16px;background:rgba(255,255,255,.45)
           <div class="opts seats">
             <label class="opt" data-seats="1"><input type="radio" name="seats" value="1" checked><span class="c"><span class="n">Just me</span><span class="d">235 AED</span></span></label>
             <label class="opt" data-seats="2"><input type="radio" name="seats" value="2"><span class="c"><span class="n">Me + 1 friend</span><span class="d">470 AED · 2 seats</span></span></label>
-            <label class="opt" data-seats="3"><input type="radio" name="seats" value="3"><span class="c"><span class="n">Me + 2 friends</span><span class="d">705 AED · 3 seats</span></span></label>
           </div>
-          <p class="legend">Your friends don't need to be on the list. Each one picks their own menu below.</p></div>
+          <p class="legend">Your friend doesn't need to be on the list. They pick their own menu below.</p></div>
         <div class="field full menu" id="m1"><div class="mstep"><span class="mnum">1</span><div><div class="mt">During the film</div><div class="ms">Popcorn's on us. Pick the drink that goes with it.</div></div></div>
           <div class="opts" data-name="drink" data-set="soft"></div></div>
         <div class="field full menu" id="m2"><div class="mstep"><span class="mnum">2</span><div><div class="mt">Dinner, after the credits</div><div class="ms">Mama Trattoria. One pasta or one pizza each.</div></div></div>
@@ -210,7 +209,7 @@ textarea{width:100%;font:inherit;font-size:16px;background:rgba(255,255,255,.45)
 <script>
 // Lien perso envoyé par mail : /book?e=<email>&n=<prénom>. Le formulaire écrit dans l'onglet Bookings, puis ouvre le lien de paiement Ziina.
 const WAITLIST_URL = 'https://script.google.com/macros/s/AKfycby48TZziF1vFC0jDyZC9niAZTA3Xbylq1UBgo-oyw9Lbmdagsx75quONyEX-msYpZ7MJQ/exec'; // appli web « Post Credits · Sheet tools » (bookings.gs)
-const PAY = { 1: 'https://pay.ziina.com/postcredits.dxb/eGue3udd4', 2: '__ZIINA_URL_2__', 3: '__ZIINA_URL_3__' }; // un lien Ziina par nombre de places
+const PAY = { 1: 'https://pay.ziina.com/postcredits.dxb/eGue3udd4', 2: 'https://pay.ziina.com/postcredits.dxb/2Iwj8N1Qt', 3: '__ZIINA_URL_3__' }; // un lien Ziina par nombre de places
 const PAY_URL = PAY[1];
 const PRICE = 235;
 const q = new URLSearchParams(location.search);
