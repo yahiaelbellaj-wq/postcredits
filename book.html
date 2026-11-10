@@ -237,6 +237,8 @@ document.getElementById('bk').addEventListener('submit', async function (e) {
   if (!terms.checked) return;
   const btn = document.getElementById('go'); btn.disabled = true; btn.textContent = 'Saving…';
   const body = new URLSearchParams(new FormData(this));
+  const src = (q.get('src') || (q.get('e') ? 'email' : 'direct')).replace(/[^a-z0-9-]/gi, '').slice(0, 20); // suivi : d'où vient la réservation
+  body.set('notes', ((body.get('notes') || '').trim() + ' [via ' + src + ']').trim());
   let res = null;
   try { res = await (await fetch(WAITLIST_URL, { method: 'POST', body })).json(); }
   catch (err) { btn.disabled = false; btn.textContent = 'Continue to payment'; alert('Something went wrong. Please try again in a minute, or reply to our email.'); return; } // pas de « succès » à l'aveugle : le serveur doit valider la place
