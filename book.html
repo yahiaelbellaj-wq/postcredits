@@ -229,7 +229,7 @@ const esc = x => String(x).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;',
 // Invités (jusqu'à 2) : prénom, nom, WhatsApp, et leur propre menu
 const step = (n, t, s, inner) => `<div class="field full menu"><div class="mstep"><span class="mnum">${n}</span><div><div class="mt">${t}</div><div class="ms">${s}</div></div></div>${inner}</div>`;
 document.getElementById('guests').innerHTML = [1, 2].map(i => `<div class="guest" id="g${i}" hidden>
-  <div class="gh">friend ${i}</div><div class="gs">They don't need to be on the list. We only need their name and their menu.</div>
+  <div class="gh">${i === 1 ? 'your friend' : 'friend ' + i}</div><div class="gs">They don't need to be on the list. We only need their name and their menu.</div>
   <div class="grid">
     <div class="field"><label for="g${i}_first">Their first name</label><input id="g${i}_first" name="g${i}_first" type="text" disabled></div>
     <div class="field"><label for="g${i}_last">Their last name</label><input id="g${i}_last" name="g${i}_last" type="text" disabled></div>
