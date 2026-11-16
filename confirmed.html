@@ -43,7 +43,7 @@ h2{font-size:clamp(34px,5vw,48px)}
 .steps div{display:grid;grid-template-columns:130px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
 .steps b{font-size:12px;letter-spacing:.18em;text-transform:uppercase}
 .acts{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
-.qrs{display:none;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;margin-top:22px}.qrs.on{display:grid}.qr{background:#fff;border:2px solid var(--ink);padding:18px;text-align:center;display:flex;flex-direction:column;align-items:center}.qr .micro{min-height:3.2em;display:flex;align-items:center;justify-content:center;line-height:1.5}.qr .box{display:flex;justify-content:center;margin:12px 0}.qr .code{font-family:monospace;font-size:14px;letter-spacing:.12em}
+
 .small{font-size:14px;color:var(--grey);margin-top:22px;max-width:560px}
 footer{padding:60px 0 40px;text-align:center}
 footer .it{font-size:28px;color:var(--red)}
@@ -73,15 +73,10 @@ footer .it{font-size:28px;color:var(--red)}
     <div class="stub"><span class="micro">Seats</span><span class="n" id="seatsN">1</span><span class="it">post credits</span><span class="ruqaa" style="font-size:18px">بعد الشارة</span></div>
   </div>
 
-  <section id="tix" style="display:none">
-    <h2 class="it">your <span id="tixWord">ticket</span>.</h2>
-    <p class="small" style="color:var(--ink)">One QR code per person, scanned at the door. Take a screenshot, or keep your confirmation email.<span id="fwd"> Forward the second one to your guest.</span></p>
-    <div class="qrs" id="qrs"></div>
-  </section>
   <section>
     <h2 class="it">what happens next.</h2>
     <div class="steps">
-      <div><b>Now</b><span>Your ticket lands in your inbox. Nothing else to do.</span></div>
+      <div><b>Now</b><span>Your ticket (a QR code per person) lands in your inbox. Nothing else to do.</span></div>
       <div><b>Tue 24 Nov</b><span>The exact address in Business Bay arrives by email, 48 hours before.</span></div>
       <div><b>Thu 26 · 20:00</b><span>Doors open. Popcorn and your drink are waiting.</span></div>
       <div><b>20:30</b><span>Cinema Paradiso on the big screen.</span></div>
@@ -95,7 +90,6 @@ footer .it{font-size:28px;color:var(--red)}
   </section>
 </div>
 <footer><div class="it">see you after the credits.</div><div class="micro" style="margin-top:10px">Film · Talk · After · Dubai</div></footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 const q = new URLSearchParams(location.search);
 const n = (q.get('n') || '').replace(/[^\p{L} '-]/gu, '').trim().slice(0, 40);
@@ -108,19 +102,6 @@ const cal = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' 
   '&dates=20261126T160000Z/20261126T210000Z&details=' + encodeURIComponent('Screening No. 001. Doors 20:00, film 20:30, then dinner and the talk. The exact address in Business Bay arrives by email on Tuesday 24 November.') +
   '&location=' + encodeURIComponent('Business Bay, Dubai (address on Tue 24 Nov)');
 document.getElementById('cal').href = cal;
-const tix = (q.get('t') || '').split('.').map(x => x.replace(/[^A-Z0-9]/gi, '').toUpperCase()).filter(x => x.length >= 8).slice(0, 2);
-if (tix.length && window.QRCode) {
-  document.getElementById('tix').style.display = 'block';
-  document.getElementById('tixWord').textContent = tix.length > 1 ? 'tickets' : 'ticket';
-  if (tix.length < 2) document.getElementById('fwd').style.display = 'none';
-  const wrap = document.getElementById('qrs'); wrap.classList.add('on');
-  tix.forEach((t, i) => {
-    const card = document.createElement('div'); card.className = 'qr';
-    card.innerHTML = '<div class="micro" style="color:var(--red)">Admit one · ' + (i === 0 ? (n || 'You') : 'Your guest') + '</div><div class="box"></div><div class="code">' + t + '</div>';
-    wrap.appendChild(card);
-    new QRCode(card.querySelector('.box'), { text: t, width: 190, height: 190, colorDark: '#141210', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
-  });
-}
 </script>
 </body>
 </html>
