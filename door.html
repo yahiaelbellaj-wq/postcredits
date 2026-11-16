@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Post Credits · Door</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0B0A09">
+<link rel="icon" href="favicon.png">
+<style>
+:root{--paper:#EAE4D8;--red:#E0301E;--ink:#141210;--black:#0B0A09;--green:#2E9E5B}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--black);color:var(--paper);font-family:Helvetica,Arial,sans-serif;min-height:100vh}
+.wrap{max-width:520px;margin:0 auto;padding:18px 16px 40px}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.24em;text-transform:uppercase;opacity:.8}
+h1{font-family:Georgia,serif;font-style:italic;font-size:34px;margin:14px 0 4px}
+#count{font-size:15px;opacity:.85}
+#reader{margin-top:16px;border-radius:10px;overflow:hidden;background:#000}
+#result{margin-top:16px;border-radius:12px;padding:22px;text-align:center;display:none}
+#result .big{font-size:30px;font-weight:800}
+#result .name{font-size:26px;margin-top:6px}
+#result .sub{font-size:15px;margin-top:6px;opacity:.9}
+.ok{background:var(--green)}.dup{background:var(--red)}.bad{background:#7A1B12}
+.row{display:flex;gap:8px;margin-top:16px}
+input{flex:1;font-size:18px;padding:14px;border-radius:8px;border:none;background:var(--paper);color:var(--ink);text-transform:uppercase}
+button{font-size:15px;font-weight:700;padding:14px 16px;border-radius:8px;border:none;background:var(--red);color:var(--paper);letter-spacing:.06em}
+#pinBox{margin-top:40px}
+.hint{font-size:13px;opacity:.7;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span>Post Credits</span><span>Door · № 001</span></div>
+  <div id="pinBox">
+    <h1>door check.</h1>
+    <p class="hint">Enter the door PIN to start scanning.</p>
+    <div class="row"><input id="pin" inputmode="numeric" maxlength="6" placeholder="PIN"><button id="go">Start</button></div>
+  </div>
+  <div id="app" style="display:none">
+    <h1>scan tickets.</h1>
+    <div id="count">…</div>
+    <div id="reader"></div>
+    <div id="result"></div>
+    <div class="row"><input id="code" placeholder="Type a code (PC1…)"><button id="check">Check</button></div>
+    <p class="hint">Green = let in. Red = already scanned, unpaid or unknown: check the name on the list.</p>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+<script>
+const API = 'https://script.google.com/macros/s/AKfycbym8J14sOWpyQeHZ2GkzKH9SOKIsvRldAFLOvb9rQ4LcAwZdKy1gsmH0ksoTgNFrw0NVg/exec';
+let PIN = ''; try { PIN = localStorage.getItem('pc_door_pin') || ''; } catch (e) {}
+let last = '', lastAt = 0, busy = false;
+const $ = id => document.getElementById(id);
+async function call(params) {
+  const r = await fetch(API, { method: 'POST', body: new URLSearchParams(Object.assign({ form: 'checkin', pin: PIN }, params)) });
+  return r.json();
+}
+async function stats() { try { const r = await call({ action: 'stats' }); if (r.ok) $('count').textContent = r.inside + ' in · ' + r.total + ' tickets'; } catch (e) {} }
+function show(cls, big, name, sub) {
+  const el = $('result'); el.className = cls; el.style.display = 'block';
+  el.innerHTML = '<div class="big">' + big + '</div>' + (name ? '<div class="name">' + name + '</div>' : '') + (sub ? '<div class="sub">' + sub + '</div>' : '');
+  if (navigator.vibrate) navigator.vibrate(cls === 'ok' ? 80 : [60, 60, 60]);
+}
+async function check(code) {
+  code = String(code || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  if (!code || busy || (code === last && Date.now() - lastAt < 4000)) return;
+  busy = true; last = code; lastAt = Date.now();
+  show('ok', 'Checking…', '', '');
+  try {
+    const r = await call({ code });
+    if (!r.ok && r.error === 'pin') { show('bad', 'Wrong PIN', '', ''); try { localStorage.removeItem('pc_door_pin'); } catch (e) {} setTimeout(() => location.reload(), 1500); return; }
+    if (r.status === 'ok') show('ok', '✓ Welcome', r.name, (r.guest ? 'Guest · ' : '') + (r.menu || ''));
+    else if (r.status === 'dup') show('dup', 'Already in · ' + r.at, r.name, 'Same ticket scanned twice');
+    else if (r.status === 'unpaid') show('bad', 'Not paid', r.name, 'Check on the list');
+    else if (r.status === 'cancelled') show('bad', 'Cancelled', r.name, '');
+    else show('bad', 'Unknown ticket', '', code);
+    stats();
+  } catch (e) { show('bad', 'No connection', '', 'Use the printed list'); }
+  finally { busy = false; }
+}
+function start() {
+  $('pinBox').style.display = 'none'; $('app').style.display = 'block'; stats();
+  const q = new Html5Qrcode('reader');
+  q.start({ facingMode: 'environment' }, { fps: 10, qrbox: 230 }, txt => check(txt), () => {}).catch(() => { $('reader').innerHTML = '<p class="hint" style="padding:16px">Camera not available: type the code below.</p>'; });
+}
+$('go').onclick = () => { PIN = $('pin').value.trim(); try { localStorage.setItem('pc_door_pin', PIN); } catch (e) {} start(); };
+$('check').onclick = () => { check($('code').value); $('code').value = ''; };
+if (PIN) start();
+</script>
+</body>
+</html>
