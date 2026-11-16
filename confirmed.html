@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Post Credits · You're in</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0B0A09">
+<link rel="icon" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Aref+Ruqaa:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#EAE4D8;--red:#E0301E;--ink:#141210;--black:#0B0A09;--grey:#6E685F;--line:rgba(20,18,16,.16)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'Archivo',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
+a{color:inherit}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+.micro{font-size:12px;font-weight:600;letter-spacing:.28em;text-transform:uppercase}
+.it{font-family:'Fraunces',serif;font-weight:900;font-style:italic;font-variation-settings:'SOFT' 60,'WONK' 1,'opsz' 144;letter-spacing:-.02em;line-height:.95}
+.ruqaa{font-family:'Aref Ruqaa',serif}
+.btn{display:inline-block;background:var(--red);color:var(--paper);text-decoration:none;padding:16px 24px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:12px;box-shadow:5px 5px 0 var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink);box-shadow:none}
+.hero{background:var(--black);color:var(--paper);position:relative;overflow:hidden;padding:26px 0 90px}
+.hero .still{position:absolute;inset:0;background:url(images/paradiso-2.jpg) 62% center/cover;filter:grayscale(1) contrast(1.1);opacity:.25}
+.hero .still:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,10,9,.35),var(--black) 92%)}
+.hero .wrap{position:relative}
+.top{display:flex;justify-content:space-between;color:rgba(234,228,216,.7)}
+.ok{display:inline-flex;align-items:center;gap:10px;margin-top:56px;color:#9BE29B}
+.ok i{width:22px;height:22px;border-radius:50%;background:#9BE29B;color:var(--black);font-style:normal;font-weight:900;display:grid;place-items:center;font-size:13px}
+h1{font-size:clamp(48px,10vw,96px);margin-top:16px}
+h1 span{color:var(--red)}
+.hero p{font-size:clamp(17px,2.2vw,19px);max-width:540px;margin-top:20px;color:rgba(234,228,216,.88)}
+.ticket{position:relative;display:grid;grid-template-columns:1fr 150px;background:var(--paper);color:var(--ink);margin-top:-56px;box-shadow:0 24px 60px rgba(0,0,0,.35);transform:rotate(-1deg)}
+.ticket .main{padding:24px 24px 22px}
+.ticket .stub{border-left:2px dashed var(--line);padding:22px 12px;text-align:center;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.ticket .stub .it{font-size:28px;color:var(--red)}
+.ticket .stub .n{font-family:'Archivo';font-stretch:62%;font-weight:900;font-size:64px;line-height:.85}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 20px;margin-top:16px}
+.facts .k{display:block;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--grey)}
+.facts .v{display:block;font-size:15px;margin-top:3px}
+section{padding:56px 0 0}
+h2{font-size:clamp(34px,5vw,48px)}
+.steps{margin-top:22px;border-top:2px solid var(--ink)}
+.steps div{display:grid;grid-template-columns:130px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.steps b{font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+.acts{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
+.small{font-size:14px;color:var(--grey);margin-top:22px;max-width:560px}
+footer{padding:60px 0 40px;text-align:center}
+footer .it{font-size:28px;color:var(--red)}
+@media(max-width:560px){.ticket{grid-template-columns:1fr 104px}.ticket .stub .n{font-size:48px}.facts{grid-template-columns:1fr}.steps div{grid-template-columns:1fr;gap:4px}}
+</style>
+</head>
+<body>
+<div class="hero"><div class="still"></div><div class="wrap">
+  <div class="top micro"><span>Post Credits</span><span>Screening № 001</span></div>
+  <div class="ok micro"><i>✓</i>Payment received</div>
+  <h1 class="it">you're in<span id="nm"></span>.</h1>
+  <p>Your <span id="seatTxt">seat is</span> confirmed for Cinema Paradiso, Thursday 26 November. A confirmation email with your ticket is on its way (have a look in Promotions too).</p>
+</div></div>
+
+<div class="wrap">
+  <div class="ticket">
+    <div class="main">
+      <div class="micro" style="color:var(--red)">Admit <span id="admit">one</span> · Thursday only</div>
+      <div class="it" style="font-size:40px;margin-top:10px">cinema paradiso.</div>
+      <div class="facts">
+        <div><span class="k">When</span><span class="v">Thu 26 Nov · doors 20:00</span></div>
+        <div><span class="k">Where</span><span class="v">Business Bay · address on Tue 24</span></div>
+        <div><span class="k">Included</span><span class="v">Popcorn, drinks, dinner</span></div>
+        <div><span class="k">Film</span><span class="v">Tornatore · 1988 · 155 min</span></div>
+      </div>
+    </div>
+    <div class="stub"><span class="micro">Seats</span><span class="n" id="seatsN">1</span><span class="it">post credits</span><span class="ruqaa" style="font-size:18px">بعد الشارة</span></div>
+  </div>
+
+  <section>
+    <h2 class="it">what happens next.</h2>
+    <div class="steps">
+      <div><b>Now</b><span>Your ticket lands in your inbox. Nothing else to do.</span></div>
+      <div><b>Tue 24 Nov</b><span>The exact address in Business Bay arrives by email, 48 hours before.</span></div>
+      <div><b>Thu 26 · 20:00</b><span>Doors open. Popcorn and your drink are waiting.</span></div>
+      <div><b>20:30</b><span>Cinema Paradiso on the big screen.</span></div>
+      <div><b>After the credits</b><span>Dinner (the pasta or pizza you picked) and the talk, as long as it takes.</span></div>
+    </div>
+    <div class="acts">
+      <a class="btn" id="cal" target="_blank" rel="noopener">Add to calendar</a>
+      <a class="btn ghost" href="https://chat.whatsapp.com/Fnh0ZzbLBtZ6OEYjw80PUT" target="_blank" rel="noopener">Join the club on WhatsApp</a>
+    </div>
+    <p class="small">Can't make it after all? Tell us at least 72 hours before by replying to your confirmation email, and we pass your seat to a friend you name or to the next person on the waitlist. Any question: postcredits.dxb@gmail.com</p>
+  </section>
+</div>
+<footer><div class="it">see you after the credits.</div><div class="micro" style="margin-top:10px">Film · Talk · After · Dubai</div></footer>
+<script>
+const q = new URLSearchParams(location.search);
+const n = (q.get('n') || '').replace(/[^\p{L} '-]/gu, '').trim().slice(0, 40);
+const s = Math.min(Math.max(parseInt(q.get('s'), 10) || 1, 1), 2);
+if (n) document.getElementById('nm').textContent = ', ' + n.toLowerCase();
+document.getElementById('seatsN').textContent = s;
+document.getElementById('admit').textContent = s > 1 ? 'two' : 'one';
+document.getElementById('seatTxt').textContent = s > 1 ? '2 seats side by side are' : 'seat is';
+const cal = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent('Post Credits · Cinema Paradiso') +
+  '&dates=20261126T160000Z/20261126T210000Z&details=' + encodeURIComponent('Screening No. 001. Doors 20:00, film 20:30, then dinner and the talk. The exact address in Business Bay arrives by email on Tuesday 24 November.') +
+  '&location=' + encodeURIComponent('Business Bay, Dubai (address on Tue 24 Nov)');
+document.getElementById('cal').href = cal;
+</script>
+</body>
+</html>

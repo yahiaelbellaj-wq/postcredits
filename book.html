@@ -209,6 +209,7 @@ textarea{width:100%;font:inherit;font-size:16px;background:rgba(255,255,255,.45)
 <script>
 // Lien perso envoyé par mail : /book?e=<email>&n=<prénom>. Le formulaire écrit dans l'onglet Bookings, puis ouvre le lien de paiement Ziina.
 const WAITLIST_URL = 'https://script.google.com/macros/s/AKfycby48TZziF1vFC0jDyZC9niAZTA3Xbylq1UBgo-oyw9Lbmdagsx75quONyEX-msYpZ7MJQ/exec'; // appli web « Post Credits · Sheet tools » (bookings.gs)
+const PAY_API = 'https://script.google.com/macros/s/AKfycbym8J14sOWpyQeHZ2GkzKH9SOKIsvRldAFLOvb9rQ4LcAwZdKy1gsmH0ksoTgNFrw0NVg/exec'; // script Post Credits (compte postcredits.dxb) : paiement Ziina par réservation
 const PAY = { 1: 'https://pay.ziina.com/postcredits.dxb/eGue3udd4', 2: 'https://pay.ziina.com/postcredits.dxb/2Iwj8N1Qt', 3: '__ZIINA_URL_3__' }; // un lien Ziina par nombre de places
 const PAY_URL = PAY[1];
 const PRICE = 235;
@@ -289,7 +290,20 @@ document.getElementById('bk').addEventListener('submit', async function (e) {
   document.getElementById('recap').innerHTML = who.map(([nm, pre]) => `<div><span>${esc(nm)}</span>${esc(pick(pre + 'drink').value)} · ${esc(pick(pre + 'main').value)} · ${esc(pick(pre + 'drink2').value)}</div>`).join('');
   const total = PRICE * n, pb = document.getElementById('paybtn');
   pb.href = PAY[n]; pb.textContent = `Pay ${total} AED · secure`;
-  document.getElementById('paytxt').textContent = n > 1 ? `Your menus are saved. Pay ${total} AED for your ${n} seats to lock them — they're only yours once paid.` : `Your menu is saved. Pay ${total} AED to lock your seat — it's only yours once paid.`;
+  // Paiement Ziina créé pour cette réservation (montant exact + retour sur /confirmed). Sinon, lien fixe PAY[n].
+  const bookEmail = (document.getElementById('email') || {}).value || '';
+  pb.onclick = async ev => {
+    ev.preventDefault(); if (pb.dataset.busy) return; pb.dataset.busy = '1'; pb.textContent = 'Opening secure payment…';
+    let url = PAY[n];
+    try {
+      const fd = new URLSearchParams({ form: 'pay', email: bookEmail.trim() });
+      if (q.get('ziinatest') === '1') fd.set('test', '1');
+      const r = await (await fetch(PAY_API, { method: 'POST', body: fd })).json();
+      if (r && r.ok && r.url) url = r.url;
+    } catch (err) {}
+    location.href = url;
+  };
+  document.getElementById('paytxt').textContent = n > 1 ? `Your menus are saved. Pay ${total} AED for your ${n} seats to lock them — they're only yours once paid. Right after paying, you land on your confirmation page and get your ticket by email.` : `Your menu is saved. Pay ${total} AED to lock your seat — it's only yours once paid. Right after paying, you land on your confirmation page and get your ticket by email.`;
   box.classList.add('sent');
   box.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
